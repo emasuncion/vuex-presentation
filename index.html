@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>VUEX</h1>
+				</section>
+				<section>
+					<section>
+						<h3>What is Vuex?</h3>
+
+						<aside class="notes">
+							<ul>
+								<li>Vuex is a state management pattern + library for Vue.js applications.</li>
+								<li>It serves as a centralized store for all the components in an application, with rules ensuring that the state can only be mutated in a predictable fashion.</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h3>What is a "State Management Pattern"?</h3>
+						<img src="lib/images/vuex.png" style="height: 500px;">
+					</section>
+					<section>
+						<h3>Shared State</h3>
+						<img src="lib/images/shared-state.png" style="height: 500px;">
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Core Concepts</h3>
+						<ol>
+							<li class="fragment fade-up">State</li>
+							<li class="fragment fade-up">Getters</li>
+							<li class="fragment fade-up">Mutations</li>
+							<li class="fragment fade-up">Actions</li>
+							<li class="fragment fade-up">Modules</li>
+						</ol>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>State</h3>
+						<ul>
+							<li>Vuex uses a single state tree.</li>
+							<li>Data that is being shared to all the components.</li>
+							<li>State is immutable.</li>
+						</ul>
+
+						<aside class="notes">
+								<ul>
+									<li>This single object contains all your application level state and serves as the "single source of truth".</li>
+									<li>All the data that is in the store can be accessed by the application's components.</li>
+									<li>We can't directly change the value of the state.</li>
+									<li>To access a state object in a component, we use this.$store.state.(state name)</li>
+								</ul>
+						</aside>
+					</section>
+					<section>
+						<h3>Getters</h3>
+						<ul>
+							<li>This is often used if there is an action that needs to be done to the state before returning its value.</li>
+							<li>Like computed properties, getter's result are cached.</li>
+						</ul>
+
+						<aside class="notes">
+							<ul>
+								<li>To access a getter object in a component, we use this.$store.getters.(getter name)</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h3>Mutations</h3>
+						<ul>
+							<li>The way to change a value of a state</li>
+							<li>Vuex mutations are very similar to events: each mutation has a string type and a handler.</li>
+							<li>Mutations are synchronous.</li>
+						</ul>
+
+						<aside class="notes">
+							<ul>
+								<li>You cannot directly call a mutation handler.</li>
+								<li>To invoke a mutation handler, you need to call store.commit with its type</li>
+								<li>store.commit('name of mutation')</li>
+								<li>We can also commit with payload, store.commit('name of mutation', payload)</li>
+								<li>It is a best practice practice to use constants for mutation types in Flux implementations.</li>
+								<li>This allows the code to take advantage of tooling like linters, and putting all constants in a single file allows your collaborators to get an at-a-glance view of what mutations are possible in the entire application.</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h3>Actions</h3>
+						<ul>
+							<li>Similar to mutations, but actions commit mutations</li>
+							<li>Actions are asynchronous.</li>
+						</ul>
+
+						<aside class="notes">
+							<ul>
+								<li>Action handlers receive a context object which exposes the same set of methods/properties on the store instance, so you can call context.commit to commit a mutation, or access the state and getters via context.state and context.getters</li>
+								<li>Actions are triggered with the store.dispatch('name of mutation') method</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h3>Modules</h3>
+						<ul>
+							<li>Each module can contain its own state, mutations, actions, getters, and even nested modules.</li>
+							<li>By default, actions, mutations and getters inside modules are still registered under the global namespace.</li>
+						</ul>
+
+						<aside class="notes">
+							<ul>
+								<li>If you want your modules to be more self-contained or reusable, you can mark it as namespaced with namespaced: true</li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Application Structure</h3>
+						<p>Vuex doesn't really restrict how you structure your code. Rather, it enforces a set of high-level principles:</p>
+						<ol>
+							<li>Application-level state is centralized in the store.</li>
+							<li>The only way to mutate the state is by committing mutations, which are synchronous transactions.</li>
+							<li>Asynchronous logic should be encapsulated in, and can be composed with actions.</li>
+						</ol>
+					</section>
+					<section>
+						<img src="lib/images/proj-structure.png"/ style="height: 500px;" />
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Vuex Dev Tool</h3>
+						<img src="lib/images/devtool.png" style="height: 500px;">
+					</section>
+					<section>
+						<a href="https://vuex.vuejs.org/guide/testing.html" target="_blank"><h3>Testing</h3></a>
+					</section>
+				</section>
+				<section>
+					<h1>DEMO							</h1>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
